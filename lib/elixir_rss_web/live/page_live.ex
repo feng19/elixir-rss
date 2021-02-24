@@ -26,10 +26,6 @@ defmodule ElixirRssWeb.PageLive do
   end
 
   defp search(query) do
-    if not ElixirRssWeb.Endpoint.config(:code_reloader) do
-      raise "action disabled when not in development"
-    end
-
     for {app, desc, vsn} <- Application.started_applications(),
         app = to_string(app),
         String.starts_with?(app, query) and not List.starts_with?(desc, ~c"ERTS"),
