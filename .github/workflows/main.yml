@@ -14,7 +14,7 @@ jobs:
         ref: master
         fetch-depth: 0
 
-    - run: $env:Path += ";./.local/bin
+    - run: echo "$HOME/.local/bin" >> $GITHUB_PATH
 
     - uses: mhanberg/gigalixir-action@v0.4.3
       with:
