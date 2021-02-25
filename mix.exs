@@ -35,13 +35,17 @@ defmodule ElixirRss.MixProject do
     [
       {:phoenix, "~> 1.5.8"},
       {:phoenix_live_view, "~> 0.15.1"},
-      {:floki, ">= 0.27.0", only: :test},
+      {:floki, ">= 0.27.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:wechat, "~> 0.3", hex: :wechat_sdk},
+      {:tesla, "~> 1.4"},
+      {:fiet, "~> 0.3"},
+      {:timex, "~> 3.6"}
     ]
   end
 
