@@ -3,8 +3,24 @@ defmodule ElixirRssWeb.PageLive do
   alias ElixirRss.Parser
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, assign(socket, last_updated: 0, preview: "")}
+  def mount(params, _session, socket) do
+    last_updated =
+      params
+      |> Map.get("last_updated", "0")
+      |> Integer.parse()
+      |> case do
+        {last_updated, ""} -> last_updated
+        _ -> 0
+      end
+
+    {last_updated, preview} =
+      if last_updated != 0 do
+        preview(last_updated)
+      else
+        {last_updated, ""}
+      end
+
+    {:ok, assign(socket, last_updated: last_updated, preview: preview)}
   end
 
   @impl true
@@ -19,6 +35,15 @@ defmodule ElixirRssWeb.PageLive do
          socket
          |> put_flash(:error, inspect(error))
          |> assign(last_updated: last_updated)}
+    end
+  end
+
+  defp preview(last_updated) do
+    with {:ok, feed} <- Parser.ElixirStatus.parse(),
+         {:ok, last_updated, content} <- Parser.ElixirStatus.transform_feed(feed, last_updated) do
+      {last_updated, content}
+    else
+      _ -> {last_updated, ""}
     end
   end
 end
