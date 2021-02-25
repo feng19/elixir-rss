@@ -58,14 +58,18 @@ defmodule ElixirRss.Parser.ElixirStatus do
       |> Enum.map(&%{&1 | published_at: transform_published_at(&1.published_at)})
       |> Enum.filter(&(&1.published_at > last_updated))
 
-    html =
-      items
-      |> Stream.map(&transform_description(&1.description, wechat_client))
-      |> Enum.intersperse({"p", [], [{"br", [], []}]})
-      |> Floki.raw_html()
+    if Enum.empty?(items) do
+      {:ok, last_updated, ""}
+    else
+      html =
+        items
+        |> Stream.map(&transform_description(&1.description, wechat_client))
+        |> Enum.intersperse({"p", [], [{"br", [], []}]})
+        |> Floki.raw_html()
 
-    last_updated = items |> Enum.max_by(& &1.published_at) |> Map.get(:published_at)
-    {:ok, last_updated, html}
+      last_updated = items |> Enum.max_by(& &1.published_at) |> Map.get(:published_at)
+      {:ok, last_updated, html}
+    end
   end
 
   defp transform_published_at(published_at) do
