@@ -20,8 +20,8 @@ defmodule ElixirRssWeb.Router do
     live "/", PageLive, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", ElixirRssWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", ElixirRssWeb do
+    pipe_through :api
+    get "/preview", PreviewController, :preview
+  end
 end
