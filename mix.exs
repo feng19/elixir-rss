@@ -42,11 +42,12 @@ defmodule ElixirRss.MixProject do
       {:telemetry_poller, "~> 0.4"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:wechat, "~> 0.3", hex: :wechat_sdk},
       {:tesla, "~> 1.4"},
       {:fiet, "~> 0.3"},
       {:timex, "~> 3.6"},
-      {:html5ever, "~> 0.8"}
+      {:html5ever, "~> 0.8"},
+      # {:wechat, "~> 0.4", hex: :wechat_sdk},
+      {:wechat, github: "feng19/wechat", branch: "work"}
     ]
   end
 

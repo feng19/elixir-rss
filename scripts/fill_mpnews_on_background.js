@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         自动填入最新 Elixir RSS 内容
 // @namespace    http://tampermonkey.net/
-// @version      0.1.2
+// @version      0.1.3
 // @description  try to take over the world!
 // @author       feng19
 // @updateURL    https://raw.githubusercontent.com/feng19/elixir-rss/master/scripts/fill_mpnews_on_background.js
@@ -61,7 +61,7 @@
           ue.setContent(json.content);
         }
 
-        $("#js_article_url_area .article_url_setting").text("https://elixir-rss.feng19.com?last_updated=" + last_updated);
+        $("#js_article_url_area .article_url_setting").text("https://elixir-rss.feng19.com/preview/" + last_updated);
 
         console.log("last_updated:", json.last_updated);
         GM_setValue(LAST_UPDATED, json.last_updated);
