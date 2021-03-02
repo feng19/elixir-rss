@@ -25,7 +25,7 @@ defmodule ElixirRssWeb.Router do
   end
 
   pipeline :wechat_oauth2 do
-    plug WeChat.Plug.CheckOauth2, client: client
+    plug WeChat.Plug.CheckOauth2, client: client, env: "dev"
   end
 
   scope "/", ElixirRssWeb do

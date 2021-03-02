@@ -183,7 +183,7 @@ defmodule ElixirRss.Parser.ElixirStatus do
             _ -> children
           end
 
-        {"span", [{"style", "text-decoration-line: underline;"}], children}
+        {"a", [{"style", "text-decoration-line: underline;"} | attrs], children}
     end
   end
 

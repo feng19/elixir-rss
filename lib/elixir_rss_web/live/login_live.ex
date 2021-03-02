@@ -15,8 +15,9 @@ defmodule ElixirRssWeb.LoginLive do
   def mount(_params, _session, socket) do
     uuid = generate_uuid()
     token = Phoenix.Token.sign(Endpoint, token_salt(), uuid)
-    url = Routes.login_o_auth2_url(Endpoint, :index, token) |> IO.inspect(label: "login url")
-    Phoenix.PubSub.subscribe(ElixirRss.PubSub, "login:" <> uuid)
+    url = Routes.login_o_auth2_url(Endpoint, :index, token) |> IO.inspect(label: "Login Url")
+    topic = "login:" <> uuid
+    Phoenix.PubSub.subscribe(ElixirRss.PubSub, topic)
     {:ok, assign(socket, oauth2_link: url)}
   end
 
