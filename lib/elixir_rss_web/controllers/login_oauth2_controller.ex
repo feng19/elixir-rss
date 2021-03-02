@@ -3,7 +3,7 @@ defmodule ElixirRssWeb.LoginOAuth2Controller do
   require Logger
 
   @max_age 5 * 60
-  @openid_whitelist [""]
+  @openid_whitelist ["oWP97uGZgZRks50Q7pwRRDIOrLdA"]
 
   def index(conn, %{"token" => token}) do
     content =
