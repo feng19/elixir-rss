@@ -42,5 +42,5 @@
   "toml": {:hex, :toml, "0.5.2", "e471388a8726d1ce51a6b32f864b8228a1eb8edc907a0edf2bb50eab9321b526", [:mix], [], "hexpm", "f1e3dabef71fb510d015fad18c0e05e7c57281001141504c6b69d94e99750a07"},
   "tzdata": {:hex, :tzdata, "1.0.5", "69f1ee029a49afa04ad77801febaf69385f3d3e3d1e4b56b9469025677b89a28", [:mix], [{:hackney, "~> 1.0", [hex: :hackney, repo: "hexpm", optional: false]}], "hexpm", "55519aa2a99e5d2095c1e61cc74c9be69688f8ab75c27da724eb8279ff402a5a"},
   "unicode_util_compat": {:hex, :unicode_util_compat, "0.7.0", "bc84380c9ab48177092f43ac89e4dfa2c6d62b40b8bd132b1059ecc7232f9a78", [:rebar3], [], "hexpm", "25eee6d67df61960cf6a794239566599b09e17e668d3700247bc498638152521"},
-  "wechat": {:git, "https://github.com/feng19/wechat.git", "9800f44b0db4f8544ca7bbf2c7c0bba3e3976685", [branch: "work"]},
+  "wechat": {:hex, :wechat_sdk, "0.4.0", "08d6ff64a1022f94aed7c9f4847b025dc5d66ac2fce3d7cbe46bbdcaa7f6e217", [:mix], [{:finch, "~> 0.5", [hex: :finch, repo: "hexpm", optional: false]}, {:jason, "~> 1.2", [hex: :jason, repo: "hexpm", optional: false]}, {:plug, "~> 1.11", [hex: :plug, repo: "hexpm", optional: true]}, {:saxy, "~> 1.2", [hex: :saxy, repo: "hexpm", optional: false]}, {:tesla, "~> 1.4", [hex: :tesla, repo: "hexpm", optional: false]}], "hexpm", "4387c8572e629aefa199b1ed702e7577f753f607e5aac22c01d8c39e47a6f150"},
 }
