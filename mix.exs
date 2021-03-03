@@ -46,8 +46,7 @@ defmodule ElixirRss.MixProject do
       {:fiet, "~> 0.3"},
       {:timex, "~> 3.6"},
       {:html5ever, "~> 0.8"},
-      # {:wechat, "~> 0.4", hex: :wechat_sdk},
-      {:wechat, github: "feng19/wechat", branch: "work"}
+      {:wechat, "~> 0.4", hex: :wechat_sdk}
     ]
   end
 
