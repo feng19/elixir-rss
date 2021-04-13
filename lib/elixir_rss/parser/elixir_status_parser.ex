@@ -23,7 +23,7 @@ defmodule ElixirRss.Parser.ElixirStatus do
      "font-size: 10px;letter-spacing: 1.5px;padding-top: 5px;padding-bottom: 5px;color: rgb(180,180,180);box-sizing: border-box;"}
   ]
   @content_attrs [{"style", "margin-left: 8px;margin-right: 8px;font-size: 12px;"}]
-  @link_attrs [{"style", "margin-left: 8px;margin-right: 8px;"}]
+  # @link_attrs [{"style", "margin-left: 8px;margin-right: 8px;"}]
 
   defp client do
     Tesla.client(
@@ -89,7 +89,7 @@ defmodule ElixirRss.Parser.ElixirStatus do
        [title, desc]}
 
     # hr 分割线
-    {contents, [_hr, link | _]} = Enum.split_while(contents, &(not match?({"hr", _, _}, &1)))
+    {contents, [_hr, _link | _]} = Enum.split_while(contents, &(not match?({"hr", _, _}, &1)))
 
     images =
       find_images(contents)
@@ -103,7 +103,7 @@ defmodule ElixirRss.Parser.ElixirStatus do
     contents = format_contents(contents, images)
     content = {"section", [], contents}
 
-    {"section", @wrapper_attrs, [head, content, format_link(link)]}
+    {"section", @wrapper_attrs, [head, content]}
   end
 
   defp format_title({_, _, children}) do
@@ -158,12 +158,12 @@ defmodule ElixirRss.Parser.ElixirStatus do
   defp format_contents([_ | contents], images), do: format_contents(contents, images)
   defp format_contents([], _images), do: []
 
-  defp format_link({link, _, children}) do
-    children = Floki.traverse_and_update(children, &format_a/1)
-    {"p", @link_attrs, {link, [], children}}
-  end
-
-  defp format_link(other), do: other
+  #  defp format_link({link, _, children}) do
+  #    children = Floki.traverse_and_update(children, &format_a/1)
+  #    {"p", @link_attrs, {link, [], children}}
+  #  end
+  #
+  #  defp format_link(other), do: other
 
   defp format_a({"a", attrs, children}) do
     case Floki.find(children, "img") do
