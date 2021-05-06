@@ -16,7 +16,7 @@ jobs:
 
     - run: echo "$HOME/.local/bin" >> $GITHUB_PATH
 
-    - uses: mhanberg/gigalixir-action@v0.4.3
+    - uses: mhanberg/gigalixir-action@v0.6.0
       with:
         GIGALIXIR_USERNAME: ${{ secrets.GIGALIXIR_USERNAME }}
         GIGALIXIR_PASSWORD: ${{ secrets.GIGALIXIR_PASSWORD }}
