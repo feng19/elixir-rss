@@ -141,11 +141,16 @@ defmodule ElixirRss.Parser.ElixirStatus do
         {"i", _, _} ->
           nil
 
+        {"a", _, ["Retweet this announcement"]} ->
+          nil
+
         other ->
           format_a(other)
       end)
       |> Enum.intersperse(" ")
-      |> List.flatten()
+      |> :erlang.iolist_to_binary()
+      |> String.trim_trailing("|")
+      |> String.trim()
 
     {"section", @desc_attrs, {"p", [], children}}
   end
