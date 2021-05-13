@@ -66,3 +66,5 @@ config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 
 config :elixir_rss, sandbox_server_role: :hub_client
+
+config :wechat, :refresh_settings, []

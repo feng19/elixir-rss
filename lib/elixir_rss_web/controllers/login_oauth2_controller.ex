@@ -15,7 +15,7 @@ defmodule ElixirRssWeb.LoginOAuth2Controller do
         appid = get_session(conn, "appid")
         access_info = get_session(conn, "access_info")
         payload = %{result: "success", appid: appid, access_info: access_info}
-        topic = ("login:" <> uuid)
+        topic = "login:" <> uuid
         ElixirRssWeb.Endpoint.broadcast(topic, "login_result", payload)
         "登录成功"
       else

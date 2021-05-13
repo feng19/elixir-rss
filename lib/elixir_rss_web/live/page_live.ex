@@ -1,6 +1,6 @@
 defmodule ElixirRssWeb.PageLive do
   use ElixirRssWeb, :live_view
-  alias ElixirRss.Parser
+  alias ElixirRss
 
   @impl true
   def mount(params, _session, socket) do
@@ -26,9 +26,10 @@ defmodule ElixirRssWeb.PageLive do
   @impl true
   def handle_event("preview", %{"f" => %{"last_updated" => last_updated}}, socket) do
     with {last_updated, ""} <- Integer.parse(last_updated),
-         {:ok, feed} <- Parser.ElixirStatus.parse(),
-         {:ok, last_updated, content} <- Parser.ElixirStatus.transform_feed(feed, last_updated) do
-      {:noreply, assign(socket, last_updated: last_updated, preview: content)}
+         {:ok, %{content: content, updated_at: updated_at_info}} <-
+           ElixirRss.show("daily", %{"after" => last_updated}) do
+      updated_at = Enum.min_by(updated_at_info, &elem(&1, 1))
+      {:noreply, assign(socket, last_updated: updated_at, preview: content)}
     else
       error ->
         {:noreply,
@@ -39,9 +40,9 @@ defmodule ElixirRssWeb.PageLive do
   end
 
   defp preview(last_updated) do
-    with {:ok, feed} <- Parser.ElixirStatus.parse(),
-         {:ok, last_updated, content} <- Parser.ElixirStatus.transform_feed(feed, last_updated) do
-      {last_updated, content}
+    with {:ok, %{content: content, updated_at: updated_at_info}} <- ElixirRss.show("daily") do
+      updated_at = Enum.min_by(updated_at_info, &elem(&1, 1))
+      {updated_at, content}
     else
       _ -> {last_updated, ""}
     end

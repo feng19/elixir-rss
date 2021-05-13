@@ -43,6 +43,7 @@ defmodule ElixirRss.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:tesla, "~> 1.4"},
+      {:hackney, "~> 1.7"},
       {:fiet, "~> 0.3"},
       {:timex, "~> 3.6"},
       {:html5ever, "~> 0.8"},

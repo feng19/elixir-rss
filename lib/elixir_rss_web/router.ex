@@ -32,7 +32,8 @@ defmodule ElixirRssWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
-    get "/preview/:last_updated", PreviewController, :index
+    get "/preview/:last_updated", PreviewController, :old
+    get "/:name", PreviewController, :show
 
     scope "/login" do
       pipe_through :login_layout
