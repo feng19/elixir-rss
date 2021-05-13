@@ -53,6 +53,11 @@ defmodule ElixirRssWeb.Router do
     end
   end
 
+  scope "/api", ElixirRssWeb do
+    pipe_through :api
+    post "/:name", PreviewController, :show_json
+  end
+
   scope "/wx/oauth2", WeChat.Plug do
     if match?(:prod, Mix.env()) do
       get "/:env/callback/*path", WebPageOAuth2, client: client, action: :hub_oauth2_callback
@@ -65,10 +70,5 @@ defmodule ElixirRssWeb.Router do
     else
       get "/*path", WebPageOAuth2, client: client, action: :oauth2
     end
-  end
-
-  scope "/api", ElixirRssWeb do
-    pipe_through :api
-    get "/preview", PreviewController, :preview
   end
 end

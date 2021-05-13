@@ -26,6 +26,8 @@ defmodule ElixirRss.Utils do
     end)
   end
 
+  def format_a(link, link, n), do: format_a("link", link, n)
+
   def format_a(title, link, n) do
     {"a",
      [
@@ -75,7 +77,7 @@ defmodule ElixirRss.Utils do
 
   def references_section(links) do
     {references, _} =
-      Enum.map_reduce(links, 0, fn link, n ->
+      Enum.map_reduce(links, 1, fn link, n ->
         {{"p", [{"style", "margin: 3px 0;"}], [{"code", [], "[#{n}]  "}, {"em", [], [link]}]},
          n + 1}
       end)
