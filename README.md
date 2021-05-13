@@ -3,12 +3,14 @@
 Elixir-RSS 内容发布网站
 
 内容来源：
-* [ElixirStatus](https://elixirstatus.com/) - WIP
 
-内容来源 - TODO：
+* [ElixirStatus](https://elixirstatus.com/)
 * [ElixirForum](https://elixirforum.com/)
 * [ElixirRadar](https://elixir-radar.com/)
 * [ElixirWeekly](https://elixirweekly.net/)
+
+内容来源 - TODO：
+
 * [ElixirJobs](https://elixirjobs.net/)
 * [PlanetErlang](http://www.planeterlang.com/)
 
