@@ -2,21 +2,7 @@ defmodule ElixirRss.Parser.ElixirRadar do
   @moduledoc false
   import ElixirRss.Utils
 
-  def test() do
-    html =
-      "/Users/panwenfu/Downloads/Elixir Radar 288.html"
-      |> File.read!()
-      |> Floki.parse_document!()
-
-    parse(%{data: html}, nil)
-  end
-
   def parse(%{data: html}, _params) do
-    content = format(html)
-    {:ok, %{content: content}}
-  end
-
-  defp format(html) do
     [title | tail] =
       Floki.find(html, "body")
       |> hd()
@@ -49,9 +35,13 @@ defmodule ElixirRss.Parser.ElixirRadar do
 
     links = Enum.reverse(links)
 
-    [{"h1", [], [Floki.text(title)]} | chapters]
-    |> Kernel.++([references_section(links)])
-    |> Floki.raw_html()
+    content =
+      chapters
+      |> Kernel.++([references_section(links)])
+      |> Floki.raw_html()
+
+    title = Floki.text(title) |> String.replace("Newsletter", "")
+    {:ok, %{content: content, title: title}}
   end
 
   defp unwrap_table(html) do

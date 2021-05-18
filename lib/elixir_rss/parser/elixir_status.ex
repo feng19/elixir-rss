@@ -10,7 +10,9 @@ defmodule ElixirRss.Parser.ElixirStatus do
         feed.items,
         {n, after_at, [], []},
         fn %{published_at: published_at} = item, {n, last_updated, items_acc, links_acc} ->
-          if parse_strftime(published_at) > after_at do
+          published_at = parse_strftime(published_at)
+
+          if published_at > after_at do
             {item_tree, n, links} = format_item(item, n)
 
             {n + 1, max(last_updated, published_at), [item_tree | items_acc], links ++ links_acc}

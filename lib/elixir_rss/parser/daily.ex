@@ -20,10 +20,16 @@ defmodule ElixirRss.Parser.Daily do
       |> Kernel.++([references])
       |> Floki.raw_html()
 
-    {:ok, %{content: content, updated_at: updated_at_info}}
+    date = :erlang.date() |> Date.from_erl!() |> Date.to_iso8601()
+    {:ok, %{content: content, updated_at: updated_at_info, title: "Elixir Daily #{date}"}}
   end
 
-  def format_info(%{data: data} = info, {n, sections_acc, links_acc, updated_at_acc} = acc, params, after_at) do
+  def format_info(
+        %{data: data} = info,
+        {n, sections_acc, links_acc, updated_at_acc} = acc,
+        params,
+        after_at
+      ) do
     after_at = Map.get(updated_at_acc, info.key, after_at)
     params = Map.put(params, "after", after_at)
 

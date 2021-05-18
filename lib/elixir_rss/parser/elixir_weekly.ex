@@ -5,13 +5,15 @@ defmodule ElixirRss.Parser.ElixirWeekly do
   @p_style {"style", "margin: 10px 0;"}
 
   def parse(%{data: html}, _params) do
-    content =
+    [title | content] =
       Floki.find(html, ".issue-preview .issue-preview__inner")
       |> hd()
       |> Floki.children(include_text: false)
       |> hd()
       |> Floki.children(include_text: false)
-      |> Enum.drop(1)
+
+    content =
+      content
       |> Enum.take_while(fn html ->
         html
         |> Floki.children(include_text: false)
@@ -23,7 +25,12 @@ defmodule ElixirRss.Parser.ElixirWeekly do
       |> format()
       |> Floki.raw_html()
 
-    {:ok, %{content: content}}
+    title =
+      Floki.text(title)
+      |> String.replace("Weekly", " Weekly")
+      |> String.replace(" by @elixirstatus", "")
+
+    {:ok, %{content: content, title: title}}
   end
 
   def format(html) do

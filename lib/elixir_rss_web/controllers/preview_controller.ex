@@ -13,12 +13,18 @@ defmodule ElixirRssWeb.PreviewController do
 
     content =
       case ElixirRss.show(name, params) do
-        {:ok, %{content: content, updated_at: updated_at}} ->
-          next_url = current_url(conn, Map.put(updated_at, "name", name))
+        {:ok, %{content: content, title: title} = data} ->
+          next_url =
+            if updated_at = Map.get(data, :updated_at) do
+              current_url(conn, updated_at)
+            else
+              ""
+            end
 
           """
           <body style="width: 50%; margin: auto auto;">
           <!-- now: #{current_url(conn)} -->
+          <h1>#{title} |> RSS</h1>
           #{content}
           <!-- next: #{next_url} -->
           </body>
