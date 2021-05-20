@@ -1,4 +1,4 @@
-# Elixir-RSS (WIP)
+# Elixir-RSS
 
 Elixir-RSS 内容发布网站
 
@@ -8,6 +8,7 @@ Elixir-RSS 内容发布网站
 * [ElixirForum](https://elixirforum.com/)
 * [ElixirRadar](https://elixir-radar.com/)
 * [ElixirWeekly](https://elixirweekly.net/)
+* [ElixirLang](https://elixir-lang.org/blog/)
 
 内容来源 - TODO：
 

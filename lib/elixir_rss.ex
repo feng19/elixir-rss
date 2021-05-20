@@ -70,6 +70,13 @@ defmodule ElixirRss do
             key: "elixir-forum",
             url: "https://elixirforum.com/c/announcements/22.rss",
             parser: Parser.ElixirForum
+          },
+          %{
+            type: :rss,
+            name: "ElixirLang",
+            key: "elixir-lang",
+            url: "https://elixir-lang.org/atom.xml",
+            parser: Parser.ElixirLang
           }
         ],
         parser: Parser.Daily
