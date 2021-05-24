@@ -3,11 +3,17 @@ defmodule ElixirRss.Parser.Daily do
   import ElixirRss.Utils
 
   def parse(%{data: list}, params) do
-    after_at = get_after_at(params) |> max(System.system_time(:second) - 7 * 86400) |> to_string()
-    {updated_at_info, params} = Map.pop(params, "updated_at", %{})
+    default_after_at =
+      get_after_at(params) |> max(System.system_time(:second) - 7 * 86400) |> to_string()
+
+    updated_at_info = get_update_at(params)
 
     {_n, sections, links, updated_at_info} =
-      Enum.reduce(list, {1, [], [], updated_at_info}, &format_info(&1, &2, params, after_at))
+      Enum.reduce(
+        list,
+        {1, [], [], updated_at_info},
+        &format_info(&1, &2, params, default_after_at)
+      )
 
     references =
       links
@@ -24,13 +30,35 @@ defmodule ElixirRss.Parser.Daily do
     {:ok, %{content: content, updated_at: updated_at_info, title: "Elixir Daily #{date}"}}
   end
 
+  defp get_update_at(params) do
+    [
+      "elixir-status",
+      "dashbit",
+      "elixir-news",
+      "phoenix-news",
+      "nerves-news",
+      "erlang-news",
+      "events",
+      "libraries",
+      "elixir-forum",
+      "elixir-lang"
+    ]
+    |> Enum.reduce(%{}, fn key, acc ->
+      if v = Map.get(params, key) do
+        Map.put(acc, key, v)
+      else
+        acc
+      end
+    end)
+  end
+
   def format_info(
-        %{data: data} = info,
+        %{key: key, data: data} = info,
         {n, sections_acc, links_acc, updated_at_acc} = acc,
         params,
-        after_at
+        default_after_at
       ) do
-    after_at = Map.get(updated_at_acc, info.key, after_at)
+    after_at = Map.get(updated_at_acc, key, default_after_at)
     params = Map.put(params, "after", after_at)
 
     info
@@ -40,7 +68,7 @@ defmodule ElixirRss.Parser.Daily do
       {:ok, %{items: items, links: links, n: n_new, updated_at: updated_at}}
       when items != [] ->
         {n_new, [chapter_section(info.name, items) | sections_acc], [links | links_acc],
-         Map.put(updated_at_acc, info.key, updated_at)}
+         Map.put(updated_at_acc, key, updated_at)}
 
       _ ->
         acc

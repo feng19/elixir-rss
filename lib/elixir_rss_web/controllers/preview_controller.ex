@@ -9,7 +9,6 @@ defmodule ElixirRssWeb.PreviewController do
 
   def show(conn, params) do
     {name, params} = Map.pop!(params, "name")
-    params = handle_update_at(params)
 
     content =
       case ElixirRss.show(name, params) do
@@ -35,29 +34,6 @@ defmodule ElixirRssWeb.PreviewController do
       end
 
     html(conn, content)
-  end
-
-  defp handle_update_at(params) do
-    [
-      "elixir-status",
-      "dashbit",
-      "elixir-news",
-      "phoenix-news",
-      "nerves-news",
-      "erlang-news",
-      "events",
-      "libraries",
-      "elixir-forum"
-    ]
-    |> Enum.reduce(Map.put(params, "updated_at", %{}), fn key, acc ->
-      case Map.pop(acc, key) do
-        {nil, _acc} ->
-          acc
-
-        {v, acc} ->
-          Map.update!(acc, "updated_at", &Map.put(&1, key, v))
-      end
-    end)
   end
 
   def show_json(conn, params) do
