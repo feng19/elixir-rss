@@ -2,12 +2,18 @@ defmodule ElixirRss.Parser do
   @moduledoc false
 
   def download(url) do
+    opts =
+      case System.get_env("USE_PROXY") do
+        nil -> []
+        _ -> [proxy: {"127.0.0.1", 1087}]
+      end
+
     [
       # Tesla.Middleware.Logger,
       Tesla.Middleware.Retry,
       {Tesla.Middleware.Timeout, timeout: 30_000}
     ]
-    |> Tesla.client(Tesla.Adapter.Hackney)
+    |> Tesla.client({Tesla.Adapter.Hackney, opts})
     |> Tesla.get(url)
   end
 

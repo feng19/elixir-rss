@@ -31,13 +31,13 @@ defmodule ElixirRss.Utils do
   def format_a(title, link, n) do
     {"a",
      [
-       {"style", "font-size: 1.125rem; text-decoration: underline;"},
+       {"style", "font-size: 1.125rem; text-decoration: unset;"},
        {"href", link},
        {"target", "_blank"}
      ], [title, {"sup", [], ["[#{n}]"]}]}
   end
 
-  def format_chapter(title) do
+  def chapter_title(title, class \\ "chapter_title") do
     {"section",
      [
        {"style",
@@ -48,7 +48,7 @@ defmodule ElixirRss.Utils do
         [
           {"style",
            "max-width: 100%;color: rgb(234, 84, 20);font-size: 1.25rem;font-weight: bold;"},
-          {"class", "chapter_title"}
+          {"class", class}
         ], [title]}
      ]}
   end
@@ -60,7 +60,7 @@ defmodule ElixirRss.Utils do
        {"class", "chapter"}
      ],
      [
-       {"section", [{"style", "text-align: center;"}], [format_chapter(chapter_title)]},
+       {"section", [{"style", "text-align: center;"}], [chapter_title(chapter_title)]},
        {"section", [{"class", "articles"}], children}
      ]}
   end
@@ -75,14 +75,36 @@ defmodule ElixirRss.Utils do
      ]}
   end
 
+  def one_line_article_section(title, description) do
+    one_line_article_section([title, description])
+  end
+
+  def one_line_article_section(children) do
+    {"section", [{"style", "margin: 10px 0;"}, {"class", "article"}], children}
+  end
+
   def references_section(links) do
-    {references, _} =
+    {children, _} =
       Enum.map_reduce(links, 1, fn link, n ->
-        {{"p", [{"style", "margin: 3px 0;"}], [{"code", [], "[#{n}]  "}, {"em", [], [link]}]},
-         n + 1}
+        {
+          {"p", [{"style", "margin: 3px 0;"}],
+           [
+             {"code", [], "[#{n}]  "},
+             {"em", [{"style", "font-size: 12px;"}], [link]}
+           ]},
+          n + 1
+        }
       end)
 
-    chapter_section("References", references)
+    {"section",
+     [
+       {"style", "padding: 1.5rem 1.5rem 0rem 1.5rem;line-height: 1.75em;"},
+       {"class", "reference"}
+     ],
+     [
+       {"section", [{"style", "text-align: center;"}], [chapter_title("References")]},
+       {"section", [{"class", "references"}], children}
+     ]}
   end
 
   def get_after_at(params) do

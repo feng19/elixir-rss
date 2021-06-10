@@ -1,6 +1,6 @@
 defmodule ElixirRss.Parser.ElixirWeekly do
   @moduledoc false
-  alias ElixirRss.Utils
+  import ElixirRss.Utils
 
   @p_style {"style", "margin: 10px 0;"}
 
@@ -22,7 +22,7 @@ defmodule ElixirRss.Parser.ElixirWeekly do
           _ -> true
         end
       end)
-      |> format()
+      |> format_content()
       |> Floki.raw_html()
 
     title =
@@ -33,23 +33,43 @@ defmodule ElixirRss.Parser.ElixirWeekly do
     {:ok, %{content: content, title: title}}
   end
 
-  def format(html) do
+  def format_content(html) do
     {tree, {_n, links}} =
       Floki.traverse_and_update(html, {1, []}, fn
-        {"div", attrs, children}, acc ->
-          {{"section", attrs, children}, acc}
+        {"div", _attrs, _children} = div, acc ->
+          case Floki.children(div, include_text: false) do
+            [] ->
+              {div, acc}
 
-        {"p", attrs, children}, acc ->
-          {{"p", [@p_style | attrs], children}, acc}
+            [_] ->
+              {div, acc}
 
-        {"a", attrs, children} = html_node, {n, list} ->
+            [title_div | children] ->
+              chapter_title = Floki.text(title_div)
+              {chapter_section(chapter_title, children), acc}
+          end
+
+        {"p", attrs, children} = p, acc ->
+          case Floki.children(p, include_text: false) do
+            [title, _br, description] ->
+              {article_section(title, [description]), acc}
+
+            [title, description] ->
+              {one_line_article_section(title, description), acc}
+
+            _ ->
+              {{"p", [@p_style | attrs], children}, acc}
+          end
+
+        {"a", _attrs, _children} = html_node, {n, list} ->
           [href] = Floki.attribute(html_node, "href")
-          {{"a", attrs, children ++ [{"sup", [], "[#{n}]"}]}, {n + 1, [href | list]}}
+          title = Floki.text(html_node)
+          {format_a(title, href, n), {n + 1, [href | list]}}
 
         other, acc ->
           {other, acc}
       end)
 
-    tree ++ [Utils.references_section(links)]
+    tree ++ [references_section(links)]
   end
 end
