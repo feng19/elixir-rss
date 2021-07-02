@@ -56,16 +56,17 @@ defmodule ElixirRss do
           },
           %{
             type: :rss,
-            name: "Events & Confs & Meetups",
-            key: "events",
-            url: "https://elixirforum.com/c/events-confs-meet-ups/11.rss",
-            parser: Parser.ElixirForum
-          },
-          %{
-            type: :rss,
             name: "Libraries & Projects",
             key: "libraries",
             url: "https://elixirforum.com/c/your-libraries-projects/23.rss",
+            parser: Parser.ElixirForum,
+            ignore_desc: true
+          },
+          %{
+            type: :rss,
+            name: "Events & Confs & Meetups",
+            key: "events",
+            url: "https://elixirforum.com/c/events-confs-meet-ups/11.rss",
             parser: Parser.ElixirForum
           },
           %{

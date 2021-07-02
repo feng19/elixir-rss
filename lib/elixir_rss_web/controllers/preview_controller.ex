@@ -19,6 +19,7 @@ defmodule ElixirRssWeb.PreviewController do
             else
               ""
             end
+            |> IO.inspect(label: "next_url")
 
           """
           <body style="width: 50%; margin: auto auto;">

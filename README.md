@@ -22,5 +22,5 @@ Elixir-RSS 内容发布网站
 ## Run Project
 
 ```shell
-WECHAT_SECRET="" WECHAT_TOKEN="" TOKEN_SALT="" PORT=4000 iex -S mix phx.server
+iex -S mix phx.server
 ```
