@@ -40,6 +40,7 @@ defmodule ElixirRss.Parser.Translator do
     |> Enum.flat_map(fn list ->
       list
       |> Enum.with_index(fn element, index -> {index, element} end)
+      # |> IO.inspect(label: "original")
       |> Map.new()
       |> Jason.encode!()
       |> batch_translation(type)
@@ -70,15 +71,17 @@ defmodule ElixirRss.Parser.Translator do
 
         list =
           translated
-          # |> IO.inspect()
+          # |> IO.inspect(label: "translated")
           |> String.replace("\\ n", "\\n")
           |> String.replace("\\ N", "\\n")
           |> String.replace("\\ ", "")
+          |> String.replace("\\“", "“")
+          |> String.replace("\\”", "”")
           |> String.replace_leading("{“0”: “", "{\"0\":\"")
           |> String.replace_trailing("”}", "\"}")
           |> String.replace_trailing("“}", "\"}")
           |> then(&Regex.replace(reg, &1, replacement))
-          # |> IO.inspect()
+          # |> IO.inspect(label: "before decode")
           |> Jason.decode!()
           |> Enum.sort_by(&(elem(&1, 0) |> String.to_integer()))
           |> Enum.map(&(elem(&1, 1) |> String.trim()))

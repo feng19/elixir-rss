@@ -106,7 +106,7 @@ defmodule ElixirRss do
   def show(path, params \\ %{}) do
     with info when is_map(info) <- Enum.find(list(), &match?(%{path: ^path}, &1)),
          {:ok, data} <- Parser.parse(info, params) do
-      is_translate = Map.has_key?(params, "translate")
+      is_translate = Map.has_key?(params, "translate") or Map.has_key?(params, "t")
 
       info
       |> Map.put(:data, data)
