@@ -1,4 +1,4 @@
-defmodule ElixirRss.Parser.Translator do
+defmodule ElixirRss.Parser.AliyunTranslator do
   @moduledoc false
   require Logger
   @host "mt.cn-hangzhou.aliyuncs.com"
@@ -102,7 +102,7 @@ defmodule ElixirRss.Parser.Translator do
     content_type = "application/json;chrset=utf-8"
 
     %{access_key_id: access_key_id, access_key_secret: access_key_secret} =
-      Application.get_env(:elixir_rss, :translator_access_info)
+      Application.get_env(:elixir_rss, :aliyun_translator_access_info)
 
     signature =
       [

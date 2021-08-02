@@ -125,7 +125,7 @@ defmodule ElixirRss do
     content_html = Floki.parse_document!(content)
 
     collect_translate_source(content_html)
-    |> Parser.Translator.batch_translation()
+    |> Parser.TencentTranslator.batch_translation()
     |> case do
       translated_texts when is_list(translated_texts) ->
         insert_translated_texts(content_html, translated_texts)
