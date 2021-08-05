@@ -70,6 +70,7 @@ defmodule ElixirRss.Parser.ElixirWeekly do
           {other, acc}
       end)
 
-    tree ++ [references_section(links)]
+    references = links |> Enum.reverse() |> references_section()
+    tree ++ [references]
   end
 end
