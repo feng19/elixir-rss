@@ -32,10 +32,15 @@
 
   // 封面
   $("input[name='file_id']").val("100000014");
-  let pic_url = "https://mmbiz.qlogo.cn/mmbiz_jpg/9x6HiaxYPqJPe0DSzC1rWGLiaiayKjEXgicNkLkATm4mh9GNSDBOLPMSvSCRXrPlIucIyTiaJ5eoTNI5nWdeZQianOPg/0?wx_fmt=jpeg"
+  // new banner
+  let pic_url = "https://mmbiz.qlogo.cn/mmbiz_jpg/9x6HiaxYPqJP4DeaKyqWW3Kn3OH5FgZ10raUJicuveyzRya2vItgiat5ZPkf51IJ3Jy5cShtKNE2kQzgeSonoSEtw/0?wx_fmt=jpeg"
+  let pix_url_back = "https://mmbiz.qpic.cn/mmbiz_jpg/9x6HiaxYPqJP4DeaKyqWW3Kn3OH5FgZ10InGowbqDxQdW2rkUgb8tvDVYWDWm6TLGWFb23jxcu5nyrLq4FfzwEw/0?wx_fmt=jpeg"
+  // old banner
+  // let pic_url = "https://mmbiz.qlogo.cn/mmbiz_jpg/9x6HiaxYPqJPe0DSzC1rWGLiaiayKjEXgicNkLkATm4mh9GNSDBOLPMSvSCRXrPlIucIyTiaJ5eoTNI5nWdeZQianOPg/0?wx_fmt=jpeg"
+  // let pix_url_back = "https://mmbiz.qpic.cn/mmbiz_png/9x6HiaxYPqJOCzWWhxZp2h14RsHtxtnL1zIGm4Wff0fnMtlzibojLyIUcLDFt8bVQiaiaPgLiaib3QkHnMt6dYJIBEHw/0?wx_fmt=png"
   $("#js_cover_area .js_cover_preview").attr("style", `background-image: url("${pic_url}");`);
-  $("input[name='cdn_url']").val("https://mmbiz.qlogo.cn/mmbiz_jpg/9x6HiaxYPqJPe0DSzC1rWGLiaiayKjEXgicNkLkATm4mh9GNSDBOLPMSvSCRXrPlIucIyTiaJ5eoTNI5nWdeZQianOPg/0?wx_fmt=jpeg");
-  $("input[name='cdn_url_back']").val("https://mmbiz.qpic.cn/mmbiz_png/9x6HiaxYPqJOCzWWhxZp2h14RsHtxtnL1zIGm4Wff0fnMtlzibojLyIUcLDFt8bVQiaiaPgLiaib3QkHnMt6dYJIBEHw/0?wx_fmt=png");
+  $("input[name='cdn_url']").val(pic_url);
+  $("input[name='cdn_url_back']").val(pix_url_back);
   $("input[name='show_cover_pic']").val("0");
 
   // 原文链接

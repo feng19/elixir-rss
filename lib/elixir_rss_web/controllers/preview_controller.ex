@@ -24,7 +24,7 @@ defmodule ElixirRssWeb.PreviewController do
           """
           <body style="width: 50%; margin: auto auto;">
           <!-- now: #{current_url(conn)} -->
-          <h1>#{title} |> RSS</h1>
+          <h1>#{title}</h1>
           #{content}
           <!-- next: #{next_url} -->
           </body>

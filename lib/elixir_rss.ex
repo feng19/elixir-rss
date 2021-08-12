@@ -89,6 +89,13 @@ defmodule ElixirRss do
       %{
         type: :html,
         name: "ElixirWeekly",
+        path: "weekly",
+        url: "https://elixirweekly.net",
+        parser: Parser.ElixirWeekly
+      },
+      %{
+        type: :html,
+        name: "ElixirWeekly",
         path: "elixir-weekly",
         url: "https://elixirweekly.net",
         parser: Parser.ElixirWeekly
