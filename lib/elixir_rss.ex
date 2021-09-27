@@ -56,9 +56,9 @@ defmodule ElixirRss do
           },
           %{
             type: :rss,
-            name: "Libraries & Projects",
+            name: "Libraries",
             key: "libraries",
-            url: "https://elixirforum.com/c/your-libraries-projects/23.rss",
+            url: "https://elixirforum.com/c/libraries/43.rss",
             parser: Parser.ElixirForum,
             ignore_desc: true
           },

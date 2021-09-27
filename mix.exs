@@ -48,7 +48,8 @@ defmodule ElixirRss.MixProject do
       {:timex, "~> 3.6"},
       {:html5ever, "~> 0.8"},
       {:wechat, "~> 0.6", hex: :wechat_sdk},
-      {:elixir_uuid, "~> 1.2"}
+      {:elixir_uuid, "~> 1.2"},
+      {:tencent_cloud, "~> 0.1"}
     ]
   end
 
