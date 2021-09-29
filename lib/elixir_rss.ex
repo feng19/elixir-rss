@@ -42,7 +42,15 @@ defmodule ElixirRss do
             type: :rss,
             name: "Nerves News",
             key: "nerves-news",
-            url: "https://elixirforum.com/c/nerves-forum/nerves-news/77.rss",
+            url: "https://elixirforum.com/c/elixir-framework-forums/nerves-forum/74.rss",
+            parser: Parser.ElixirForum,
+            ignore_desc: true
+          },
+          %{
+            type: :rss,
+            name: "Nx",
+            key: "nx-news",
+            url: "https://elixirforum.com/c/elixir-framework-forums/nx-forum/105.rss",
             parser: Parser.ElixirForum,
             ignore_desc: true
           },

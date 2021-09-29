@@ -28,7 +28,7 @@ defmodule ElixirRss.Parser.ElixirWeekly do
     title =
       Floki.text(title)
       |> String.trim()
-      |> String.replace("Weekly", " 编程语言社区周报")
+      |> String.replace("Weekly", " 编程语言 | 社区周报")
       |> String.replace("Issue ", "")
       |> String.replace(" by @elixirstatus", "")
 

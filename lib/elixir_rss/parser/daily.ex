@@ -27,7 +27,7 @@ defmodule ElixirRss.Parser.Daily do
       |> Floki.raw_html()
 
     date = :erlang.date() |> Date.from_erl!() |> Date.to_iso8601() |> String.slice(5..-1)
-    {:ok, %{content: content, updated_at: updated_at_info, title: "Elixir 编程语言社区日报 #{date}"}}
+    {:ok, %{content: content, updated_at: updated_at_info, title: "Elixir 编程语言 | 社区日报 #{date}"}}
   end
 
   defp get_update_at(params) do
@@ -41,7 +41,8 @@ defmodule ElixirRss.Parser.Daily do
       "events",
       "libraries",
       "elixir-forum",
-      "elixir-lang"
+      "elixir-lang",
+      "nx-news"
     ]
     |> Enum.reduce(%{}, fn key, acc ->
       if v = Map.get(params, key) do
@@ -75,5 +76,5 @@ defmodule ElixirRss.Parser.Daily do
     end
   end
 
-  def format_info(_, acc), do: acc
+  def format_info(_, acc, _, _), do: acc
 end
