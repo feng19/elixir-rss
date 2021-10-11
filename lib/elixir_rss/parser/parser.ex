@@ -73,7 +73,6 @@ defmodule ElixirRss.Parser do
         end
       end)
       |> Enum.map(&elem(&1, 1))
-      |> IO.inspect()
 
     {:ok, list}
   end

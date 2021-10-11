@@ -82,7 +82,8 @@ defmodule ElixirRss do
             name: "ElixirForum Announcements",
             key: "elixir-forum",
             url: "https://elixirforum.com/c/announcements/22.rss",
-            parser: Parser.ElixirForum
+            parser: Parser.ElixirForum,
+            ignore_desc: true
           },
           %{
             type: :rss,
