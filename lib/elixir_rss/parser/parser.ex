@@ -65,13 +65,19 @@ defmodule ElixirRss.Parser do
   end
 
   def parse(%{type: :list, list: list}, params) do
+    len = length(list)
+
     list =
-      Task.async_stream(list, fn info ->
-        case parse(info, params) do
-          {:ok, data} -> Map.put(info, :data, data)
-          _error -> info
-        end
-      end)
+      Task.async_stream(
+        list,
+        fn info ->
+          case parse(info, params) do
+            {:ok, data} -> Map.put(info, :data, data)
+            _error -> info
+          end
+        end,
+        timeout: len * 5000
+      )
       |> Enum.map(&elem(&1, 1))
 
     {:ok, list}
