@@ -5,7 +5,7 @@
 # is restricted to this project.
 
 # General application configuration
-use Mix.Config
+import Config
 
 # Configures the endpoint
 config :elixir_rss, ElixirRssWeb.Endpoint,
@@ -24,8 +24,6 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :floki, :html_parser, Floki.HTMLParser.Html5ever
-
-config :wechat, :refresh_settings, [ElixirRss.WeChat.Sandbox]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

@@ -21,12 +21,7 @@ defmodule ElixirRss.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: ElixirRss.Supervisor]
 
-    with {:ok, _} = return <- Supervisor.start_link(children, opts) do
-      client = ElixirRss.WeChat.Sandbox
-      WeChat.set_hub_url(client, "https://elixir-rss.feng19.com")
-      WeChat.set_oauth2_env_url(client, "dev", "http://127.0.0.1:4000/wx/oauth2/callback/")
-      return
-    end
+    Supervisor.start_link(children, opts)
   end
 
   # Tell Phoenix to update the endpoint configuration

@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 # For production, don't forget to configure the url host
 # to something meaningful, Phoenix uses this information
@@ -29,5 +29,3 @@ config :elixir_rss, ElixirRssWeb.Endpoint,
 
 # Do not print debug messages in production
 config :logger, level: :info
-
-config :elixir_rss, sandbox_server_role: :hub
