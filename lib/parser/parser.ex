@@ -4,11 +4,14 @@ defmodule ElixirRss.Parser do
 
   def download(url) do
     opts =
-      case System.get_env("USE_PROXY") do
-        nil -> []
-        "0" -> []
-        "false" -> []
-        _ -> [proxy: {"127.0.0.1", 1087}]
+      if proxy =
+           System.get_env("HTTP_PROXY") || System.get_env("http_proxy") ||
+             System.get_env("HTTPS_PROXY") || System.get_env("https_proxy") do
+        Logger.debug("Using PROXY: #{proxy}")
+        %{host: host, port: port} = URI.parse(proxy)
+        [proxy: {host, port}]
+      else
+        []
       end
 
     [
@@ -29,9 +32,9 @@ defmodule ElixirRss.Parser do
     end
   end
 
-  def parse(info, params \\ nil)
+  def download_and_parse(info, params \\ nil)
 
-  def parse(%{type: :rss, url: url}, _) do
+  def download_and_parse(%{type: :rss, url: url}, _) do
     case download(url) do
       {:ok, %{status: 200, body: xml}} ->
         Fiet.parse(xml)
@@ -42,7 +45,7 @@ defmodule ElixirRss.Parser do
     end
   end
 
-  def parse(%{type: :html, url: :get_from_params}, params) do
+  def download_and_parse(%{type: :html, url: :get_from_params}, params) do
     with url when url != nil <- Map.get(params, "url"),
          {:ok, %{status: 200, body: body}} <- download(url) do
       Floki.parse_document(body)
@@ -53,7 +56,7 @@ defmodule ElixirRss.Parser do
     end
   end
 
-  def parse(%{type: :html, url: url}, _) do
+  def download_and_parse(%{type: :html, url: url}, _) do
     case download(url) do
       {:ok, %{status: 200, body: body}} ->
         Floki.parse_document(body)
@@ -64,14 +67,14 @@ defmodule ElixirRss.Parser do
     end
   end
 
-  def parse(%{type: :list, list: list}, params) do
+  def download_and_parse(%{type: :list, list: list}, params) do
     len = length(list)
 
     list =
       Task.async_stream(
         list,
         fn info ->
-          case parse(info, params) do
+          case download_and_parse(info, params) do
             {:ok, data} -> Map.put(info, :data, data)
             _error -> info
           end

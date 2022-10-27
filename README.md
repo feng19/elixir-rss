@@ -1,6 +1,6 @@
 # Elixir-RSS
 
-Elixir-RSS 内容发布网站
+Elixir-RSS 内容发布工具
 
 内容来源：
 
@@ -17,10 +17,10 @@ Elixir-RSS 内容发布网站
 
 本项目的作用是将以上来源的信息聚合发布到微信公众号
 
-![请关注公众号](wechat_qrcode.png)
+![请关注公众号](wechat_qrcode.jpg)
 
 ## Run Project
 
 ```shell
-iex -S mix phx.server
+iex -S mix
 ```

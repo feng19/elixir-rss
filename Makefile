@@ -1,3 +1,4 @@
 
 run:
-	USE_PROXY=1 iex -S mix phx.server
+	open http://127.0.0.1:4000/weekly?t
+	iex -S mix
