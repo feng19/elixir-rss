@@ -27,7 +27,7 @@ defmodule ElixirRss.Parser.Daily do
       |> Floki.raw_html()
 
     date = :erlang.date() |> Date.from_erl!() |> Date.to_iso8601() |> String.slice(5..-1)
-    {:ok, %{content: content, updated_at: updated_at_info, title: "Elixir 编程语言 | 社区日报 #{date}"}}
+    {:ok, %{content: content, updated_at: updated_at_info, title: "Elixir 社区日报 #{date}"}}
   end
 
   defp get_update_at(params) do
